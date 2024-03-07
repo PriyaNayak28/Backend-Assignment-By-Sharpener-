@@ -8,9 +8,7 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
     const product = new Product(req.body.title);
-    console.log(product);
     product.save();
-    console.log(product.save());
     res.redirect('/');
 }
 
@@ -32,6 +30,15 @@ exports.postContact = (req, res, next) => {
 exports.pageNotFound = (req, res, next) => {
     res.sendFile(path.join(rootDir, 'views', '404.html'));
 };
+
+exports.getProductsID = (req, res, next) => {
+    const proID = req.params.productID;
+    Product.findById(proID, product => {
+        console.log(product);
+    })
+    console.log(proID);
+    res.redirect('/');
+}
 
 
 
