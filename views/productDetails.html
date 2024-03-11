@@ -22,13 +22,14 @@
     </header>
 
     <main>
-        <form class="Product-form" action="/contact/contactus" method="post">
-            <label for="username">Name</label>
-            <input type="text" name="username" id="username"><br>
-            <label for="email">email Id</label>
-            <input type="email" name="email" id="email">
-            <button type="submit">Add</button>
-        </form>
+        <div>
+            <h1 id="pageTitle">{{page.Title}}</h1>
+            <form action="/add-to-cart" method="post">
+                <input type="text" name="productID" value="{{product.id}}">
+                <input type="number" name="totalPrice" value="">
+                <button type="submit">add to cart</button>
+            </form>
+        </div>
     </main>
 </body>
 

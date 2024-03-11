@@ -1,6 +1,7 @@
 const path = require('path');
 const rootDir = require('../utils/path');
 const Product = require('../models/product');
+const Cart = require('../models/cart');
 
 exports.getAddProduct = (req, res, next) => {
     res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
@@ -34,12 +35,26 @@ exports.pageNotFound = (req, res, next) => {
 exports.getProductsID = (req, res, next) => {
     const proID = req.params.productID;
     Product.findById(proID, product => {
-        console.log(product);
-    })
+        res.sendFile(path.join(rootDir, 'views', 'product-details.html'));
+    });
+};
+
+
+exports.getCart = (req, res, next) => {
+    const proID = req.query.productID; // Use req.query for GET requests
     console.log(proID);
-    res.redirect('/');
-}
+    res.sendFile(path.join(rootDir, 'views', 'productDetails.html'));
+};
 
-
-
-
+exports.postCart = (req, res, next) => {
+    const proID = req.body.productID;
+    Product.findById(proID, (product) => {
+        if (product) {
+            Cart.addProduct(proID, product.price);
+            res.redirect('/add-to-cart');
+        } else {
+            // Handle the case where the product is not found
+            res.status(404).send('Product not found');
+        }
+    });
+};

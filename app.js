@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const contactRoutes = require('./routes/contact');
+const productDetailsController = require('./routes/productDetails');
 const path = require('path');
 const productsController = require('./controllers/products');
 
@@ -12,9 +13,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', adminRoutes);
 app.use('/contact', contactRoutes);
+app.use(productDetailsController);
 app.use(shopRoutes);
+
+
 
 app.use(productsController.pageNotFound);
 
-app.listen(80);
+app.listen(5500);
 

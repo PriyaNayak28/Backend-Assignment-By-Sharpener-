@@ -45,9 +45,16 @@ module.exports = class Product {
 
     static findById(id, cb) {
         getProductsFromFile(products => {
+            console.log(products); // Log the products array
             const product = products.find(p => p.id === id);
-            cb(product);
-        })
-    };
+            if (product) {
+                cb(product);
+            } else {
+                console.log(`Product not found with ID: ${id}`);
+                cb(null); // Pass null to indicate product not found
+            }
+        });
+    }
+
 };
 
