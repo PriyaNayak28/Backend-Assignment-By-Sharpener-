@@ -4,7 +4,7 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getAddProduct = (req, res, next) => {
-    res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
+    res.sendFile(path.join(rootDir, 'views', 'edit-product.html'));
 }
 
 exports.postAddProduct = (req, res, next) => {
@@ -47,7 +47,6 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
-    const proID = req.body.productID;
     Product.findById(proID, (product) => {
         if (product) {
             Cart.addProduct(proID, product.price);
@@ -58,3 +57,19 @@ exports.postCart = (req, res, next) => {
         }
     });
 };
+
+exports.getEditProduct = (req, res, next) => {
+    const editMode = req.query.edit;
+    if (!editMode) {
+        return res.redirect('/');
+    }
+    const proID = req.body.productID;
+    Product.findById(proID, product => {
+        if (!product) {
+            return res.redirect('/');
+        }
+        res.sendFile(path.join(rootDir, 'views', 'edit-product.html'),
+            'editing : editMode',
+            'product:product');
+    });
+}

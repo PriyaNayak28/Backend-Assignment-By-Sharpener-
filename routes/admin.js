@@ -4,9 +4,12 @@ const path = require('path');
 const rootDir = require('../utils/path');
 const productsController = require('../controllers/products');
 
-routes.get('/add-product', productsController.getAddProduct);
+routes.get('/edit-product', productsController.getAddProduct);
 
-routes.post('/add-product', productsController.postAddProduct);
+routes.post('/edit-product', productsController.postAddProduct);
+
+routes.get('/edit-product/:productID', productsController.getEditProduct);
+
 
 module.exports = routes;
 
